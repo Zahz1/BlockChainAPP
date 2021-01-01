@@ -13,8 +13,8 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class customBlockList extends ArrayAdapter<BlockInfo> {
-    public customBlockList(@NonNull Context context, int resource) {
-        super(context, resource);
+    public customBlockList(@NonNull Context context, ArrayList<BlockInfo> list) {
+        super(context,0, list);
     }
 
     @NonNull
@@ -28,9 +28,9 @@ public class customBlockList extends ArrayAdapter<BlockInfo> {
         BlockInfo currBlock = getItem(position);
 
         TextView index = listItemView.findViewById(R.id.positionNum);
-        index.setText(position);
+        index.setText(String.valueOf(position+1));
 
-        String infoString = currBlock.getSender().concat(" gave ").concat(currBlock.getReceiver()).concat(" ").concat(String.valueOf(currBlock.getAmount()));
+        String infoString = "# ".concat(currBlock.getSender()).concat(" gave ").concat(currBlock.getReceiver()).concat(" ").concat(String.valueOf(currBlock.getAmount()));
 
         TextView info = listItemView.findViewById(R.id.BlockInfo);
         info.setText(infoString);
