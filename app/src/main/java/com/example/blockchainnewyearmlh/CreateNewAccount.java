@@ -1,0 +1,43 @@
+package com.example.blockchainnewyearmlh;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class CreateNewAccount extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_create_new_account);
+    }
+
+
+    public void createAccount(View view){
+        EditText u = findViewById(R.id.Username);
+        EditText p = findViewById(R.id.Password);
+        EditText p2 = findViewById(R.id.Password2);
+        if (!u.getText().toString().equals("")){
+            if (!p.getText().toString().equals("")){
+                if (p.getText().toString().equals(p2.getText().toString())){
+                    //send this info to fire base and move to next page
+
+                    Intent i = new Intent(this, inSideApp.class);
+                    i.putExtra("name", u.getText().toString());
+                    startActivity(i);
+                } else {
+                    Toast.makeText(this, "Passwords not the same.", Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                Toast.makeText(this, "Passwords empty.", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(this, "Username empty.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+}

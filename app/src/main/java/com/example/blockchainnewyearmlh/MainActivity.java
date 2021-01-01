@@ -2,48 +2,60 @@ package com.example.blockchainnewyearmlh;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<BlockInfo> blockList = null;
-    customBlockList blockAdapter = null;
-    ListView blockListView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        blockListView = findViewById(R.id.listView);
-        blockList = new ArrayList<BlockInfo>();
-        blockAdapter = new customBlockList(this, blockList);
-        blockListView.setAdapter(blockAdapter);
 
     }
 
-    public void buttonSendFunction(View view){
-        String sender, receiver;
-        int amount;
+    public void nextPage (View view){
 
-        EditText s = findViewById(R.id.editTextTextUserName);
-        sender = s.getText().toString();
+        EditText u = findViewById(R.id.editTextTextPersonName2);
+        EditText p = findViewById(R.id.editTextTextPersonName3);
 
-        EditText r = findViewById(R.id.editTextTextPersonName);
-        receiver = r.getText().toString();
+        if (u.getText().toString().equals("")){
+            Toast.makeText(this, "Username empty.", Toast.LENGTH_SHORT).show();
+        }else{
 
-        EditText n = findViewById(R.id.editTextNumber);
-        amount = Integer.parseInt(n.getText().toString());
+            if (p.getText().toString().equals("")){
+                Toast.makeText(this, "Passwords empty.", Toast.LENGTH_SHORT).show();
+            }else{
 
-        BlockInfo curr = new BlockInfo(sender,receiver,amount);
-        //then add it to the list
-        blockList.add(curr);
-        blockAdapter.notifyDataSetChanged();
+
+                //check to see if it is in the database
+                //if(in database)
+
+                Intent i = new Intent(this, inSideApp.class);
+                i.putExtra("name", "usernameHere");
+                startActivity(i);
+            }
+        }
     }
+
+    public void createNewA (View view){
+        Intent i = new Intent(this, CreateNewAccount.class);
+        startActivity(i);
+    }
+
+    public void adminPass(View view){
+        Intent i = new Intent(this, inSideApp.class);
+        i.putExtra("name", "admin");
+        startActivity(i);
+    }
+
 
 
 }
