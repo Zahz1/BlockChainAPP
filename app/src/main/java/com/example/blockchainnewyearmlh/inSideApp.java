@@ -41,7 +41,6 @@ public class inSideApp extends AppCompatActivity {
         blockList = new ArrayList<BlockInfo>();
         blockAdapter = new customBlockList(this, blockList);
         blockListView.setAdapter(blockAdapter);
-
     }
 
     public void buttonSendFunction(View view){
