@@ -1,14 +1,26 @@
 package com.example.blockchainnewyearmlh;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class CreateNewAccount extends AppCompatActivity {
+
+    private DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("appData").document("Passwords");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +37,19 @@ public class CreateNewAccount extends AppCompatActivity {
             if (!p.getText().toString().equals("")){
                 if (p.getText().toString().equals(p2.getText().toString())){
                     //send this info to fire base and move to next page
+                    Map<String, String> dataToSave = new HashMap<String, String>();
+                    dataToSave.put(u.getText().toString(),p.getText().toString());
+                    mDocRef.set(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d("Password","document not saved!");
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("Password","document not saved!", e);
+                        }
+                    });
 
                     Intent i = new Intent(this, inSideApp.class);
                     i.putExtra("name", u.getText().toString());

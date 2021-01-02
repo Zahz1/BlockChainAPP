@@ -9,9 +9,19 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+
+    private DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("appData").document("Passwords");
+    public Map<String, Object> getData = new HashMap<String, Object>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +48,20 @@ public class MainActivity extends AppCompatActivity {
                 //check to see if it is in the database
                 //if(in database)
 
-                Intent i = new Intent(this, inSideApp.class);
-                i.putExtra("name", "usernameHere");
-                startActivity(i);
+                mDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if(documentSnapshot.exists()){
+                            getData = documentSnapshot.getData();
+                        }
+                    }
+                });
+                if ( ((String) getData.get(u.getText().toString())).equals(p.getText().toString())){
+                    Intent i = new Intent(this, inSideApp.class);
+                    i.putExtra("name", "usernameHere");
+                    startActivity(i);
+                };
+
             }
         }
     }
