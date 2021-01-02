@@ -1,5 +1,6 @@
 package com.example.blockchainnewyearmlh;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,19 +10,25 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     private DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("appData").document("Passwords");
-    public Map<String, Object> getData = new HashMap<String, Object>();
+    public Map<String, String> getData = new HashMap<String, String>();
+    List<Map<String, String>> mArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,19 +55,33 @@ public class MainActivity extends AppCompatActivity {
                 //check to see if it is in the database
                 //if(in database)
 
-                mDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                final boolean[] found = {false};
+
+                mDocRef.collection("Passwords").whereEqualTo(u.getText().toString(),p.getText().toString()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if(documentSnapshot.exists()){
-                            getData = documentSnapshot.getData();
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            found[0] = true;
+                        } else {
+                            return;
                         }
                     }
                 });
-                if ( ((String) getData.get(u.getText().toString())).equals(p.getText().toString())){
+
+                if (found[0]){
                     Intent i = new Intent(this, inSideApp.class);
                     i.putExtra("name", "usernameHere");
                     startActivity(i);
-                };
+                } else {
+                    Toast.makeText(this, "wrong info", Toast.LENGTH_SHORT).show();
+                }
+
+
+              //  if (().equals(p.getText().toString()) ){
+              //      Intent i = new Intent(this, inSideApp.class);
+              //      i.putExtra("name", "usernameHere");
+              //      startActivity(i);
+              //  };
 
             }
         }

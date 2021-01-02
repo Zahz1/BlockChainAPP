@@ -81,14 +81,15 @@ public class inSideApp extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.exists()){
-                   getData = documentSnapshot.getData();
+                    getData =documentSnapshot.getData();
                 }
             }
         });
         ArrayList<Object> newList = new ArrayList<Object>(getData.values());
         blockList.clear();
         for (int i = 0; i < newList.size(); i++){
-            blockList.add((BlockInfo) newList.get(i));
+            Map<String, Object> curr = (Map<String, Object>) newList.get(i);
+            blockList.add(new BlockInfo((String) curr.get("sender"), (String) curr.get("receiver"), ((Long) curr.get("amount")).intValue()));
         }
         blockAdapter.notifyDataSetChanged();
     }

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -20,7 +21,7 @@ import java.util.Map;
 
 public class CreateNewAccount extends AppCompatActivity {
 
-    private DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("appData").document("Passwords");
+    private CollectionReference mColRef = FirebaseFirestore.getInstance().collection("appData").document("Passwords").collection("Passwords");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class CreateNewAccount extends AppCompatActivity {
                     //send this info to fire base and move to next page
                     Map<String, String> dataToSave = new HashMap<String, String>();
                     dataToSave.put(u.getText().toString(),p.getText().toString());
-                    mDocRef.set(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    mColRef.document().set(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.d("Password","document not saved!");
