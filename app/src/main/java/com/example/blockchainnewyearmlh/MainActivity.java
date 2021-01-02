@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -13,16 +16,23 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<BlockInfo> blockList = null;
     customBlockList blockAdapter = null;
     ListView blockListView = null;
+    private EditText editTextTextUserName;
+    private Button sendButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        editTextTextUserName = findViewById(R.id.editTextTextUserName);
+        sendButton = findViewById(R.id.sendButton);
+
         blockListView = findViewById(R.id.listView);
         blockList = new ArrayList<BlockInfo>();
         blockAdapter = new customBlockList(this, blockList);
         blockListView.setAdapter(blockAdapter);
+
+
 
     }
 
@@ -43,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         //then add it to the list
         blockList.add(curr);
         blockAdapter.notifyDataSetChanged();
+
     }
 
 
