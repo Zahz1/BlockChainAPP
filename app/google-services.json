@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "435239877175",
+    "project_id": "block-chain-d6e5b",
+    "storage_bucket": "block-chain-d6e5b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435239877175:android:dabb50a5dfe02558b91db2",
+        "android_client_info": {
+          "package_name": "com.example.blockchainnewyearmlh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435239877175-uvsm3r08ch6ci4hfucitu431smn6cogo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6Nbh1jrlPNmcN-TDZwLzptYf2k2d-QPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435239877175-uvsm3r08ch6ci4hfucitu431smn6cogo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
