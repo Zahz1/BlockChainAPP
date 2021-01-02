@@ -38,9 +38,13 @@ public class MainActivity extends AppCompatActivity {
                 //check to see if it is in the database
                 //if(in database)
 
-                Intent i = new Intent(this, inSideApp.class);
-                i.putExtra("name", "usernameHere");
-                startActivity(i);
+
+                try () {
+                    Intent i = new Intent(this, inSideApp.class);
+                    i.putExtra("name", "usernameHere");
+                    startActivity(i);
+                }
+
             }
         }
     }

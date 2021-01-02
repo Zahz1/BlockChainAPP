@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 public class CreateNewAccount extends AppCompatActivity {
 
     @Override
@@ -25,7 +27,7 @@ public class CreateNewAccount extends AppCompatActivity {
             if (!p.getText().toString().equals("")){
                 if (p.getText().toString().equals(p2.getText().toString())){
                     //send this info to fire base and move to next page
-
+                    FirebaseDatabase.getInstance().getReference().child("Credentials").child(u.getText().toString()).setValue(p.getText().toString());
                     Intent i = new Intent(this, inSideApp.class);
                     i.putExtra("name", u.getText().toString());
                     startActivity(i);
